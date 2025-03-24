@@ -41,5 +41,9 @@ This project analyzes and visualizes real-time traffic on a home Wi-Fi network u
 
 ---
 
+📁 Full project with screenshots, SPL queries, and PDF:  
+> 👉 (https://github.com/Mohithvasamsetti5666/Splunk-wifi-network-monitor.git)
+
+---
 
 📌 [Connect with me on LinkedIn](https://www.linkedin.com/in/mvasamsetti/)
