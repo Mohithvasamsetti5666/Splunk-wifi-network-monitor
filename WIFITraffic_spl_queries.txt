@@ -1,0 +1,42 @@
+For Panel 1: Most Active Devices (by Packet Count)
+SPL:
+index=wifitraffic sourcetype=csv
+| stats count as Packets by extracted_Source
+| sort -Packets
+
+
+
+For Panel 2: Least Active Devices
+SPL:
+index=wifitraffic sourcetype=csv
+| stats count as Packets by extracted_Source
+| sort Packets
+
+
+
+For Panel 3: Top Visited Sites (Destination IPs)
+SPL:
+index=wifitraffic sourcetype=csv
+| top Destination
+
+
+For Panel 4: Device to Site Mapping
+SPL:
+index=wifitraffic sourcetype=csv
+| stats count as Connections by extracted_Source, Destination
+| sort -Connections
+
+
+
+For Panel 5: Traffic Over Time by Device
+SPL:
+index=wifitraffic sourcetype=csv
+| timechart count by extracted_Source
+
+
+
+For Panel 6: Top Bandwidth Usage
+SPL:
+index=wifitraffic sourcetype=csv
+| stats sum(Length) as Total_Data_Used by extracted_Source
+| sort -Total_Data_Used
