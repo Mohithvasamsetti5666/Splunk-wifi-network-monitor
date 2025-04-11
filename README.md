@@ -1,49 +1,60 @@
-# 🏠 Home Wi-Fi Network Monitor Dashboard (Splunk)
+# 📡 Home Wi-Fi Network Monitor Dashboard (Splunk)
 
-This project analyzes and visualizes real-time traffic on a home Wi-Fi network using **Splunk** and **Wireshark**. I built this to simulate a SOC-style monitoring dashboard from scratch.
-
----
-
-## 📌 What It Does
-
-✅ Captures real network traffic  
-✅ Tracks devices (by IP) connected to Wi-Fi  
-✅ Shows what websites/devices they connected to  
-✅ Identifies most/least active devices  
-✅ Plots traffic trends over time
+This project simulates a Security Operations Center (SOC)-style monitoring dashboard to analyze Wi-Fi traffic using Splunk.
 
 ---
 
-## 🔧 Tools Used
+## 🎯 Project Objective
 
-- 📡 **Wireshark** – captured `.pcap` data from home Wi-Fi
-- 🔄 **CSV Export** – Wireshark logs saved as `.csv`
-- 📊 **Splunk (Free Version)** – uploaded and visualized data using SPL
-- 🧠 **SPL (Search Processing Language)** – used to build custom panels
+Track and visualize:
+- Devices connected to your Wi-Fi network
+- Which websites/IPs they connect to
+- Network traffic volume and trends
 
----
-
-## 📊 Dashboard Panels
-
-| Panel Title               | Description                           |
-|---------------------------|----------------------------------------|
-| Most Active Devices       | Devices sending the most packets       |
-| Least Active Devices      | Devices with minimal network activity  |
-| Top Visited Sites         | Most contacted destination IPs         |
-| Device ↔ Site Mapping     | Shows what each device accessed        |
-| Traffic Trend             | Activity over time (timechart)         |
+All done **offline**, using `.pcap` and `.csv` log files via Wireshark.
 
 ---
 
-## 📸 Screenshots
-[Dashboard Full View](Screenshot-1.png)  
-[Panel View](Screenshot-3.png)
+## 🛠️ Tools Used
+
+| Tool       | Purpose                                 |
+|------------|------------------------------------------|
+| Wireshark  | Captured `.pcap` file from home network  |
+| CSV Export | Converted `.pcap` to `.csv`              |
+| Splunk     | Ingested `.csv` and built visual panels  |
+| SPL        | Used to search, summarize, and visualize |
 
 ---
 
-📁 Full project with screenshots, SPL queries, and PDF:  
-> 👉 (https://github.com/Mohithvasamsetti5666/Splunk-wifi-network-monitor.git)
+## 📁 Folder Contents
+
+| File | Purpose |
+|------|---------|
+| `home_network_traffic.csv` | Raw Wi-Fi log data from Wireshark |
+| `WIFITraffic_spl_queries.txt` | List of SPL queries used in Splunk panels |
+| `Screenshot-1.png` | Dashboard full view |
+| `Screenshot-2.png` | Most active devices |
+| `Screenshot-3.png` | Device-to-site mapping |
+| `Home Network Traffic Dashboard.pdf` | Optional PDF export |
 
 ---
 
-📌 [Connect with me on LinkedIn](https://www.linkedin.com/in/mvasamsetti/)
+## 📊 Dashboard Panels (Created in Splunk)
+
+| Panel Title         | Description                                |
+|---------------------|--------------------------------------------|
+| Most Active Devices | Devices sending the most packets           |
+| Least Active Devices| Devices with low packet count              |
+| Top Visited Sites   | Most contacted IPs (websites, routers)     |
+| Device ↔ Site Map   | Which device talked to which destination   |
+| Traffic Trend       | Timeline of overall network usage          |
+
+---
+
+## 🔎 Example SPL Queries
+
+**Most Active Devices**
+```spl
+| inputlookup home_network_traffic.csv
+| stats count by "Source"
+| sort - count
